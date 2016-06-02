@@ -1,6 +1,6 @@
 def create_discovery(cli, num, app_path, data_path):
     container_id = cli.create_container(
-        image='mephidude/basenode:latest',
+        image='basenode:latest',
         command='python3 discovery-node.py',
         # command='/bin/bash',
         volumes=['/mnt/app', '/mnt/dat'],
@@ -24,7 +24,7 @@ def create_discovery(cli, num, app_path, data_path):
 
 def create_frontend(cli, num, app_path, data_path):
     container_id = cli.create_container(
-        image='mephidude/basenode:latest',
+        image='basenode:latest',
         command='python3 frontend-node.py',
         # command='/bin/bash',
         volumes=['/mnt/app', '/mnt/dat'],
@@ -49,7 +49,7 @@ def create_frontend(cli, num, app_path, data_path):
 
 def create_backend(cli, num, app_path, data_path):
     container_id = cli.create_container(
-        image='mephidude/basenode:latest',
+        image='basenode:latest',
         command='python3 backend-node.py',
         # command='/bin/bash',
         volumes=['/mnt/app', '/mnt/dat'],
@@ -73,7 +73,7 @@ def create_backend(cli, num, app_path, data_path):
 
 def create_client(cli, num, app_path, data_path):
     container_id = cli.create_container(
-        image='mephidude/basenode:latest',
+        image='basenode:latest',
         command='python3 client.py',
         # command='/bin/bash',
         volumes=['/mnt/app', '/mnt/dat'],
