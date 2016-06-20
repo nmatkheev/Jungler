@@ -12,6 +12,7 @@ class Jungler(object):
         self.data_path = _data_path
         self.backends = _backends
         self.create_containers()
+        self.status = {}
 
     def create_containers(self):
         cont_d = create_discovery(self.cli, 0, self.app_path, self.data_path)
@@ -30,6 +31,7 @@ class Jungler(object):
     def start_containers_all(self):
         for name, contid in self.list_containers.items():
             response = self.cli.start(container=contid)
+            self.status[name] = ''
 
     def start_container(self, contname):
         response = self.cli.start(container=contname)
@@ -57,14 +59,14 @@ class Jungler(object):
             execid = self.cli.exec_create(self.list_containers[name],
                                           cmd='tc qdisc add dev eth0 root netem ' + opts)
             response = self.cli.exec_start(exec_id=execid)
-
+            self.status[name] = opts
 
     def recover(self, affected_list):
         for name in affected_list:
             execid = self.cli.exec_create(self.list_containers[name],
                                           cmd='tc qdisc del dev eth0 root netem')
             response = self.cli.exec_start(exec_id=execid)
-
+            self.status[name] = ''
 
     def delay_distr(self, affected_list, delay, period, distribution):
         for name in affected_list:

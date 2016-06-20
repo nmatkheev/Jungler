@@ -25,7 +25,8 @@ def create_discovery(cli, num, app_path, data_path):
 def create_frontend(cli, num, app_path, data_path):
     container_id = cli.create_container(
         image='basenode:latest',
-        command='python3 frontend-node.py',
+        # command='python3 frontend-single.py',       #####################
+        command='python3 frontend-threadfork.py',       #####################
         # command='/bin/bash',
         volumes=['/mnt/app', '/mnt/dat'],
         host_config=cli.create_host_config(binds={
@@ -74,7 +75,7 @@ def create_backend(cli, num, app_path, data_path):
 def create_client(cli, num, app_path, data_path):
     container_id = cli.create_container(
         image='basenode:latest',
-        command='python3 client.py',
+        command='python3 parallel_client.py',  ####################
         # command='/bin/bash',
         volumes=['/mnt/app', '/mnt/dat'],
         host_config=cli.create_host_config(binds={

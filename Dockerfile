@@ -5,4 +5,4 @@ LABEL Description="Base node image for SampleRabbit app" Vendor="Mephidude" Vers
 
 RUN apt-get update
 RUN apt-get install -y python3 python3-dev python3-pip
-RUN pip3 install requests
+RUN pip3 install requests grequests

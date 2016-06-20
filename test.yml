@@ -6,9 +6,11 @@ docker_ip: 192.168.99.100:2376
 
 tls: /Users/lancer/.docker/machine/certs
 
-backends: 5
+backends: 2
 
 tests:
+  pass:
+    duration: 100
   t1:
     args: delay 1000ms 200ms distribution normal
     nodes: frontend0 backend0

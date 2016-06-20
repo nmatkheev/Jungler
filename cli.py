@@ -5,7 +5,10 @@ import time
 from clint.textui import prompt, puts, colored, validators
 from parsers import parse_config
 from core import Jungler
+
 import argparse
+
+import subprocess
 
 import docker.tls as tls
 
@@ -84,12 +87,18 @@ while True:
         jungler.start_containers_all()
         tests = Config['tests']
         for test in tests.items():
+            if 'pass' in test[0]:
+                time.sleep(test[1]['duration'])
+                continue
             jungler.exec_tc(test[1]['nodes'], test[1]['args'])
             time.sleep(test[1]['duration'])
-    elif 'exit' in cmd:
+    elif 'clearlogs' in cmd:
+        removecall = 'rm -rf {0}'.format(data_path)
+        createdir = 'mkdir {0}'.format(data_path)
+        subprocess.Popen(removecall.split())
+        subprocess.Popen(createdir.split())
+    elif 'wipe' in cmd:
         jungler.stop_containers_all()
         jungler.remove_containers_all()
-        os.exit(0)
-
-jungler.stop_containers_all()
-jungler.remove_containers_all()
+    elif 'exit' in cmd:
+        break
